@@ -1,16 +1,14 @@
 # OpenAI Codex for Open Source Application Draft
 
-> This is a draft for manual review before submitting the official OpenAI form.
+> Review this draft manually before submitting the official OpenAI form. Do not add unverified claims such as user numbers, stars, revenue, credentials, or customer names.
 
-## Project
-
-Repository URL:
+## Repository URL
 
 ```text
 https://github.com/hjkhh73-cloud/manufacturing-rag-starter
 ```
 
-Project name:
+## Project name
 
 ```text
 Manufacturing RAG Starter
@@ -18,51 +16,63 @@ Manufacturing RAG Starter
 
 ## Maintainer role
 
-Recommended answer:
-
 ```text
 Primary maintainer
 ```
 
-## Why this repository may qualify
-
-Draft answer:
-
-```text
-Manufacturing RAG Starter is an open-source starter kit for building manufacturing-domain knowledge bases for Dify, AnythingLLM, and custom AI assistants. The project helps manufacturing teams structure ERP, MES, WMS, APS, BOM, MRP, quality inspection, delivery, and finance analysis knowledge into RAG-ready datasets.
-
-I am maintaining this project to make practical industrial AI workflows easier for small and medium manufacturing teams. The repository includes a Python CLI, sample manufacturing knowledge records, Dify / AnythingLLM import guidance, scenario taxonomy, and a roadmap for adding Markdown ingestion, SQLite indexing, FastAPI search, and evaluation questions.
-
-Codex would help me maintain the project by improving documentation, generating tests, reviewing issue reports, expanding manufacturing templates, and accelerating implementation of the planned FastAPI and SQLite features.
-```
-
-## API credits use plan
-
-Draft answer:
-
-```text
-If API credits are available, I plan to use them for testing manufacturing RAG workflows, generating evaluation questions, comparing retrieval prompts, and validating assistant answers for ERP/MES/WMS scenarios. The credits would be used for open-source development and documentation examples rather than commercial production workloads.
-```
-
-## Codex Security interest
-
-Draft answer:
-
-```text
-Yes. I am interested in using Codex Security to review the repository as it evolves, especially when adding FastAPI endpoints, file ingestion, SQLite metadata indexing, and user-provided document processing.
-```
-
 ## Short project summary
 
-Draft answer:
-
 ```text
-An open-source manufacturing RAG starter kit for turning ERP/MES/WMS/SOP knowledge into AI-ready datasets for Dify, AnythingLLM, and custom assistants.
+Manufacturing RAG Starter is an open-source starter kit for preparing ERP, MES, WMS, APS, BOM, MRP, quality, delivery, and finance knowledge for RAG tools such as Dify, AnythingLLM, and custom AI assistants.
 ```
 
-## Notes before submission
+## Suggested answer: why this repository is relevant to open source
 
-- Replace the repository URL if the final GitHub repository name changes.
-- Confirm the ChatGPT account email.
-- Confirm GitHub username.
-- Confirm OpenAI Organization ID if applying for API credits.
+```text
+Manufacturing RAG Starter is a public open-source project that helps manufacturing teams and AI builders turn practical industrial process knowledge into structured, RAG-ready datasets.
+
+The project focuses on common manufacturing digitalization scenarios such as ERP, MES, WMS, APS, BOM, MRP, sales orders, work orders, inventory, quality inspection, delivery, and finance operation analysis. It includes a Python CLI, sample manufacturing knowledge records, JSONL output, Dify / AnythingLLM import guidance, a scenario taxonomy, Chinese and English documentation, unit tests, and GitHub Actions CI.
+
+I am maintaining this project because many small and medium manufacturing teams are interested in AI assistants, but they often struggle to organize domain knowledge before choosing a model or tool. This repository provides a simple and transparent starting point that can be reviewed, improved, and adapted by other developers, consultants, and manufacturing IT teams.
+```
+
+## Suggested answer: how Codex would help maintain the project
+
+```text
+Codex would help me maintain the project by accelerating documentation improvements, generating tests, reviewing code changes, and expanding manufacturing scenario templates.
+
+The planned roadmap includes Markdown folder ingestion, a SQLite metadata index, a FastAPI search demo, more ERP/MES/WMS templates, and evaluation questions for manufacturing RAG assistants. Codex would be especially useful for implementing these features in small, reviewable pull requests while keeping the project understandable for new contributors.
+```
+
+## Suggested answer: API credits use plan, if requested
+
+```text
+If API credits are available, I plan to use them for open-source development and testing, including generating manufacturing RAG evaluation questions, comparing retrieval prompts, validating assistant answers for ERP/MES/WMS scenarios, and improving documentation examples.
+
+The credits would be used for project maintenance, examples, and evaluation workflows rather than commercial production workloads.
+```
+
+## Suggested answer: Codex Security interest
+
+```text
+Yes. I am interested in using Codex Security as the project evolves, especially when adding FastAPI endpoints, file ingestion, SQLite metadata indexing, and user-provided document processing. Security review would help avoid unsafe file handling, accidental exposure of sensitive data, and common API implementation issues.
+```
+
+## Suggested answer: project impact
+
+```text
+The project is useful because manufacturing AI assistant projects often fail before model selection: SOPs, ERP/MES/WMS process notes, and implementation knowledge are scattered and difficult to import into RAG systems consistently.
+
+Manufacturing RAG Starter provides a practical baseline for organizing this knowledge, generating portable JSONL records, importing them into tools like Dify and AnythingLLM, and testing assistants with realistic manufacturing questions.
+```
+
+## Submission checklist
+
+Before submitting:
+
+- Confirm the repository is public.
+- Confirm the README accurately describes the current project state.
+- Confirm the GitHub account name is correct.
+- Confirm the ChatGPT / OpenAI account email.
+- Confirm whether an OpenAI organization ID is required.
+- Do not claim production users, stars, revenue, certifications, or customer deployments unless they are true and verifiable.
