@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "manufacturing-rag-starter"
+version = "0.1.0"
+description = "A starter kit for manufacturing RAG knowledge bases for Dify, AnythingLLM, and custom AI assistants."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "hjkhh73-cloud" }]
+keywords = ["manufacturing", "rag", "dify", "anythingllm", "erp", "mes", "wms", "knowledge-base"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Manufacturing",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Text Processing",
+]
+
+[project.urls]
+Homepage = "https://github.com/hjkhh73-cloud/manufacturing-rag-starter"
+Issues = "https://github.com/hjkhh73-cloud/manufacturing-rag-starter/issues"
+
+[project.scripts]
+mfg-rag = "mfg_rag_starter.cli:main"

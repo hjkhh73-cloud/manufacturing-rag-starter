@@ -1,0 +1,18 @@
+name: Manufacturing knowledge template
+about: Suggest a new manufacturing scenario or knowledge record
+labels: [knowledge, manufacturing]
+body:
+  - type: input
+    id: scenario
+    attributes:
+      label: Scenario
+      description: ERP, MES, WMS, APS, BOM/MRP, QC, delivery, or finance analysis
+    validations:
+      required: true
+  - type: textarea
+    id: content
+    attributes:
+      label: Knowledge content
+      description: Describe the process, required fields, branch logic, exception handling, and expected output.
+    validations:
+      required: true
