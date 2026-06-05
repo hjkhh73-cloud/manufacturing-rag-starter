@@ -46,6 +46,7 @@ Many manufacturing AI projects fail before the model is selected because the sou
 - Manufacturing scenario templates
 - Sample ERP/MES/WMS knowledge records
 - JSONL chunk output for downstream RAG systems
+- Reusable manufacturing evaluation questions and retrieval baseline
 - Dify / AnythingLLM import guidance
 - English and Chinese documentation
 - Open-source documentation suitable for continuous community improvement
@@ -111,9 +112,20 @@ Use `examples/manufacturing_kb.jsonl` as a clean, structured source for a knowle
 
 Import guide: [docs/dify-anythingllm-import-guide.md](docs/dify-anythingllm-import-guide.md)
 
+Run the manufacturing retrieval baseline:
+
+```bash
+python -m mfg_rag_starter evaluate \
+  --knowledge examples/manufacturing_kb.jsonl \
+  --questions evaluation/manufacturing_eval_questions.jsonl \
+  --output evaluation/baseline_results.json \
+  --top-k 1
+```
+
 ## Documentation
 
 - [Architecture](docs/architecture.md)
+- [Evaluation guide](docs/evaluation-guide.md)
 - [Project impact](docs/project-impact.md)
 - [Scenario taxonomy](docs/scenario-taxonomy.md)
 - [Dify / AnythingLLM import guide](docs/dify-anythingllm-import-guide.md)
@@ -126,6 +138,7 @@ Import guide: [docs/dify-anythingllm-import-guide.md](docs/dify-anythingllm-impo
 manufacturing-rag-starter/
 ├── data/                         # sample source knowledge
 ├── docs/                         # implementation and import guides
+├── evaluation/                   # evaluation questions and baseline results
 ├── examples/                     # generated examples and prompts
 ├── src/mfg_rag_starter/          # Python CLI source code
 ├── tests/                        # unit tests
@@ -156,6 +169,12 @@ Regenerate the sample JSONL file:
 
 ```bash
 python -m mfg_rag_starter build --input data/sample_knowledge.csv --output examples/manufacturing_kb.jsonl
+```
+
+Run the retrieval baseline:
+
+```bash
+python -m mfg_rag_starter evaluate --knowledge examples/manufacturing_kb.jsonl --questions evaluation/manufacturing_eval_questions.jsonl --output evaluation/baseline_results.json --top-k 1
 ```
 
 ## Contributing

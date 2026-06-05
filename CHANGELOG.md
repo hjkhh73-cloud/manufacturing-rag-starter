@@ -7,3 +7,4 @@
 - Added sample ERP/MES/WMS/QC/finance records.
 - Added Dify and AnythingLLM import guide.
 - Added scenario taxonomy and application draft.
+- Added a reusable manufacturing evaluation set and deterministic retrieval baseline.
