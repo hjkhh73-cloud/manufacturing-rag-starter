@@ -9,7 +9,9 @@ Completed:
 - CSV to JSONL knowledge builder
 - Manufacturing sample knowledge records
 - Dify / AnythingLLM import guidance
+- Upload-ready Markdown export and reproducible import example
 - Scenario taxonomy for ERP, MES, WMS, APS, BOM, MRP, quality, delivery, and finance analysis
+- Manufacturing evaluation question set and retrieval baseline
 - Basic unit tests and GitHub Actions CI
 
 ## 1. Short-term improvements
@@ -43,17 +45,6 @@ Planned templates:
 - delivery risk escalation;
 - finance operation analysis.
 
-### 1.3 Evaluation question set
-
-Goal: provide repeatable questions for testing manufacturing RAG assistants.
-
-Expected work:
-
-- scenario-based questions;
-- expected answer points;
-- failure examples;
-- prompt suggestions for Dify and AnythingLLM.
-
 ## 2. Medium-term improvements
 
 ### 2.1 SQLite metadata index
@@ -76,17 +67,6 @@ Expected work:
 - `/records` endpoint;
 - `/search` endpoint;
 - simple examples for local testing.
-
-### 2.3 Dify and AnythingLLM demo workflows
-
-Goal: document a more complete demo from source documents to chatbot validation.
-
-Expected work:
-
-- import checklist;
-- sample prompts;
-- testing workflow;
-- screenshots or text-based expected outputs.
 
 ## 3. Long-term direction
 

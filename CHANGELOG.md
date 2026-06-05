@@ -1,6 +1,10 @@
 # Changelog
 
-## 0.1.0 - 2026-06-01
+## Unreleased
+
+- Added upload-ready Markdown export and a reproducible Dify / AnythingLLM import example.
+
+## 0.1.0 - 2026-06-05
 
 - Initial public project structure.
 - Added CSV-to-JSONL manufacturing knowledge builder.

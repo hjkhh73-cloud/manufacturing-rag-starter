@@ -72,6 +72,40 @@ def build_jsonl(input_path: Path, output_path: Path) -> int:
     return count
 
 
+def safe_filename(value: str) -> str:
+    filename = re.sub(r"[^a-zA-Z0-9._-]+", "_", value).strip("._")
+    return filename or "knowledge-record"
+
+
+def to_markdown_document(record: KnowledgeRecord) -> str:
+    return (
+        "---\n"
+        f"id: {json.dumps(record.id, ensure_ascii=False)}\n"
+        f"scenario: {json.dumps(record.scenario, ensure_ascii=False)}\n"
+        f"source_type: {json.dumps(record.source_type, ensure_ascii=False)}\n"
+        f"tags: {json.dumps(record.tags, ensure_ascii=False)}\n"
+        "---\n\n"
+        f"# {record.title}\n\n"
+        f"{record.content}\n"
+    )
+
+
+def export_markdown(input_path: Path, output_dir: Path) -> int:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    count = 0
+    for record in read_csv(input_path):
+        output_path = output_dir / f"{safe_filename(record.id)}.md"
+        content = to_markdown_document(record)
+        if output_path.exists():
+            if output_path.read_text(encoding="utf-8") != content:
+                raise FileExistsError(f"Refusing to overwrite changed file: {output_path}")
+            count += 1
+            continue
+        output_path.write_text(content, encoding="utf-8")
+        count += 1
+    return count
+
+
 def preview_jsonl(input_path: Path, limit: int) -> list[dict]:
     results: list[dict] = []
     with input_path.open("r", encoding="utf-8") as file:
@@ -165,6 +199,18 @@ def main() -> None:
     preview_parser.add_argument("--input", required=True, type=Path, help="Input JSONL file")
     preview_parser.add_argument("--limit", default=3, type=int, help="Number of records to preview")
 
+    markdown_parser = subparsers.add_parser(
+        "export-markdown",
+        help="Export CSV knowledge records as upload-ready Markdown documents",
+    )
+    markdown_parser.add_argument("--input", required=True, type=Path, help="Input CSV file")
+    markdown_parser.add_argument(
+        "--output-dir",
+        required=True,
+        type=Path,
+        help="Output directory for Markdown documents",
+    )
+
     evaluate_parser = subparsers.add_parser(
         "evaluate",
         help="Run a deterministic keyword retrieval baseline against an evaluation set",
@@ -181,6 +227,9 @@ def main() -> None:
     elif args.command == "preview":
         for item in preview_jsonl(args.input, args.limit):
             print(json.dumps(item, ensure_ascii=False, indent=2))
+    elif args.command == "export-markdown":
+        count = export_markdown(args.input, args.output_dir)
+        print(f"Exported {count} Markdown documents: {args.output_dir}")
     elif args.command == "evaluate":
         report = write_evaluation_report(
             args.knowledge,
