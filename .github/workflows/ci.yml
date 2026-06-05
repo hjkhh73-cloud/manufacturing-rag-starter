@@ -20,5 +20,7 @@ jobs:
         run: python -m mfg_rag_starter build --input data/sample_knowledge.csv --output examples/manufacturing_kb.jsonl
       - name: Preview sample knowledge base
         run: python -m mfg_rag_starter preview --input examples/manufacturing_kb.jsonl --limit 1
+      - name: Export upload-ready Markdown documents
+        run: python -m mfg_rag_starter export-markdown --input data/sample_knowledge.csv --output-dir /tmp/upload-ready-markdown
       - name: Run manufacturing retrieval baseline
         run: python -m mfg_rag_starter evaluate --knowledge examples/manufacturing_kb.jsonl --questions evaluation/manufacturing_eval_questions.jsonl --output evaluation/baseline_results.json --top-k 1

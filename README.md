@@ -46,6 +46,7 @@ Many manufacturing AI projects fail before the model is selected because the sou
 - Manufacturing scenario templates
 - Sample ERP/MES/WMS knowledge records
 - JSONL chunk output for downstream RAG systems
+- Upload-ready Markdown export for Dify and AnythingLLM
 - Reusable manufacturing evaluation questions and retrieval baseline
 - Dify / AnythingLLM import guidance
 - English and Chinese documentation
@@ -64,6 +65,14 @@ Preview generated JSONL:
 
 ```bash
 python -m mfg_rag_starter preview --input examples/manufacturing_kb.jsonl --limit 3
+```
+
+Generate Markdown files that can be uploaded directly to Dify or AnythingLLM:
+
+```bash
+python -m mfg_rag_starter export-markdown \
+  --input data/sample_knowledge.csv \
+  --output-dir examples/upload-ready-markdown
 ```
 
 Chinese quick start: [docs/zh-cn/快速开始.md](docs/zh-cn/快速开始.md)
@@ -108,7 +117,10 @@ Convert SOP notes into RAG chunks so that an AI assistant can help frontline use
 
 ### 3. Dify / AnythingLLM knowledge base starter
 
-Use `examples/manufacturing_kb.jsonl` as a clean, structured source for a knowledge base. Each record contains title, scenario, source type, tags, and content.
+Use `examples/upload-ready-markdown` as a directly uploadable sample folder, or
+use `examples/manufacturing_kb.jsonl` as a structured source for custom
+integrations. Each record contains title, scenario, source type, tags, and
+content.
 
 Import guide: [docs/dify-anythingllm-import-guide.md](docs/dify-anythingllm-import-guide.md)
 
