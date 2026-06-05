@@ -1,0 +1,118 @@
+{
+  "metric": "hit@1",
+  "hits": 10,
+  "total": 10,
+  "score": 1.0,
+  "results": [
+    {
+      "id": "EVAL-ERP-001",
+      "question": "How are customer demand, sales orders, production orders, and shop-floor execution divided between ERP and MES?",
+      "expected_source_ids": [
+        "KB-ERP-001"
+      ],
+      "retrieved_source_ids": [
+        "KB-ERP-001"
+      ],
+      "hit": true
+    },
+    {
+      "id": "EVAL-DELIVERY-001",
+      "question": "Which system should own the customer delivery commitment, and where should execution exceptions be reported?",
+      "expected_source_ids": [
+        "KB-ERP-001"
+      ],
+      "retrieved_source_ids": [
+        "KB-ERP-001"
+      ],
+      "hit": true
+    },
+    {
+      "id": "EVAL-BOM-001",
+      "question": "What should be checked before a new BOM version becomes effective?",
+      "expected_source_ids": [
+        "KB-BOM-001"
+      ],
+      "retrieved_source_ids": [
+        "KB-BOM-001"
+      ],
+      "hit": true
+    },
+    {
+      "id": "EVAL-MRP-001",
+      "question": "Should an MRP or BOM change silently replace materials on a work order that has already started?",
+      "expected_source_ids": [
+        "KB-BOM-001"
+      ],
+      "retrieved_source_ids": [
+        "KB-BOM-001"
+      ],
+      "hit": true
+    },
+    {
+      "id": "EVAL-WMS-001",
+      "question": "What fields should be collected when WMS inventory differs from MES material consumption?",
+      "expected_source_ids": [
+        "KB-WMS-001"
+      ],
+      "retrieved_source_ids": [
+        "KB-WMS-001"
+      ],
+      "hit": true
+    },
+    {
+      "id": "EVAL-WMS-002",
+      "question": "What are common causes of an inventory mismatch between WMS and MES?",
+      "expected_source_ids": [
+        "KB-WMS-001"
+      ],
+      "retrieved_source_ids": [
+        "KB-WMS-001"
+      ],
+      "hit": true
+    },
+    {
+      "id": "EVAL-QC-001",
+      "question": "What information should be recorded when a quality inspection fails?",
+      "expected_source_ids": [
+        "KB-QC-001"
+      ],
+      "retrieved_source_ids": [
+        "KB-QC-001"
+      ],
+      "hit": true
+    },
+    {
+      "id": "EVAL-QC-002",
+      "question": "Which disposition decisions can follow a failed inspection?",
+      "expected_source_ids": [
+        "KB-QC-001"
+      ],
+      "retrieved_source_ids": [
+        "KB-QC-001"
+      ],
+      "hit": true
+    },
+    {
+      "id": "EVAL-FIN-001",
+      "question": "Which cost elements should be included in manufacturing gross margin analysis?",
+      "expected_source_ids": [
+        "KB-FIN-001"
+      ],
+      "retrieved_source_ids": [
+        "KB-FIN-001"
+      ],
+      "hit": true
+    },
+    {
+      "id": "EVAL-FIN-002",
+      "question": "How should order-level and product-line manufacturing margin be analyzed?",
+      "expected_source_ids": [
+        "KB-FIN-001"
+      ],
+      "retrieved_source_ids": [
+        "KB-FIN-001"
+      ],
+      "hit": true
+    }
+  ]
+}

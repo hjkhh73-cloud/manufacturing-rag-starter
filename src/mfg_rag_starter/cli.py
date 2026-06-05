@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import re
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Iterable
@@ -81,6 +82,77 @@ def preview_jsonl(input_path: Path, limit: int) -> list[dict]:
     return results
 
 
+def read_jsonl(path: Path) -> list[dict]:
+    with path.open("r", encoding="utf-8") as file:
+        return [json.loads(line) for line in file if line.strip()]
+
+
+def tokenize(value: str) -> set[str]:
+    return {
+        token
+        for token in re.findall(r"[a-zA-Z0-9]+", value.lower())
+        if len(token) > 2
+    }
+
+
+def evaluate_retrieval(knowledge_path: Path, questions_path: Path, top_k: int = 1) -> dict:
+    if top_k < 1:
+        raise ValueError("top_k must be at least 1")
+
+    knowledge = read_jsonl(knowledge_path)
+    questions = read_jsonl(questions_path)
+    results = []
+    hits = 0
+
+    for case in questions:
+        question_tokens = tokenize(case["question"])
+        ranked = sorted(
+            knowledge,
+            key=lambda item: (
+                len(question_tokens.intersection(tokenize(item.get("text", "")))),
+                item.get("id", ""),
+            ),
+            reverse=True,
+        )
+        retrieved_ids = [item["id"] for item in ranked[:top_k]]
+        expected_ids = case["expected_source_ids"]
+        hit = any(item in expected_ids for item in retrieved_ids)
+        hits += int(hit)
+        results.append(
+            {
+                "id": case["id"],
+                "question": case["question"],
+                "expected_source_ids": expected_ids,
+                "retrieved_source_ids": retrieved_ids,
+                "hit": hit,
+            }
+        )
+
+    total = len(results)
+    return {
+        "metric": f"hit@{top_k}",
+        "hits": hits,
+        "total": total,
+        "score": hits / total if total else 0,
+        "results": results,
+    }
+
+
+def write_evaluation_report(
+    knowledge_path: Path,
+    questions_path: Path,
+    output_path: Path,
+    top_k: int = 1,
+) -> dict:
+    report = evaluate_retrieval(knowledge_path, questions_path, top_k)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    return report
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Manufacturing RAG Starter CLI")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -93,6 +165,15 @@ def main() -> None:
     preview_parser.add_argument("--input", required=True, type=Path, help="Input JSONL file")
     preview_parser.add_argument("--limit", default=3, type=int, help="Number of records to preview")
 
+    evaluate_parser = subparsers.add_parser(
+        "evaluate",
+        help="Run a deterministic keyword retrieval baseline against an evaluation set",
+    )
+    evaluate_parser.add_argument("--knowledge", required=True, type=Path, help="Knowledge JSONL file")
+    evaluate_parser.add_argument("--questions", required=True, type=Path, help="Evaluation JSONL file")
+    evaluate_parser.add_argument("--output", required=True, type=Path, help="Evaluation report JSON file")
+    evaluate_parser.add_argument("--top-k", default=1, type=int, help="Number of retrieved records")
+
     args = parser.parse_args()
     if args.command == "build":
         count = build_jsonl(args.input, args.output)
@@ -100,6 +181,17 @@ def main() -> None:
     elif args.command == "preview":
         for item in preview_jsonl(args.input, args.limit):
             print(json.dumps(item, ensure_ascii=False, indent=2))
+    elif args.command == "evaluate":
+        report = write_evaluation_report(
+            args.knowledge,
+            args.questions,
+            args.output,
+            args.top_k,
+        )
+        print(
+            f"{report['metric']}: {report['hits']}/{report['total']} "
+            f"({report['score']:.1%}) -> {args.output}"
+        )
 
 
 if __name__ == "__main__":

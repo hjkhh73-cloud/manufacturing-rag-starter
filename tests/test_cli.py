@@ -4,7 +4,13 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from mfg_rag_starter.cli import build_jsonl, normalize_tags, preview_jsonl
+from mfg_rag_starter.cli import (
+    build_jsonl,
+    evaluate_retrieval,
+    normalize_tags,
+    preview_jsonl,
+    write_evaluation_report,
+)
 
 
 class CliTests(unittest.TestCase):
@@ -40,6 +46,46 @@ class CliTests(unittest.TestCase):
             self.assertIn("Work order reporting", records[0]["text"])
             self.assertEqual(records[0]["tags"], ["MES", "work order"])
             json.loads(output.read_text(encoding="utf-8").strip())
+
+    def test_evaluate_retrieval_reports_expected_source_hit(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            knowledge = root / "knowledge.jsonl"
+            questions = root / "questions.jsonl"
+            output = root / "results.json"
+            knowledge.write_text(
+                json.dumps(
+                    {
+                        "id": "KB-WMS-001",
+                        "text": "WMS inventory mismatch material code warehouse batch number",
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            questions.write_text(
+                json.dumps(
+                    {
+                        "id": "EVAL-WMS-001",
+                        "question": "Which fields identify a WMS inventory mismatch?",
+                        "expected_source_ids": ["KB-WMS-001"],
+                    }
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+            report = evaluate_retrieval(knowledge, questions)
+            self.assertEqual(report["hits"], 1)
+            self.assertEqual(report["score"], 1)
+
+            written = write_evaluation_report(knowledge, questions, output)
+            self.assertEqual(written["metric"], "hit@1")
+            self.assertEqual(json.loads(output.read_text(encoding="utf-8"))["hits"], 1)
+
+    def test_evaluate_retrieval_rejects_invalid_top_k(self):
+        with self.assertRaises(ValueError):
+            evaluate_retrieval(Path("knowledge.jsonl"), Path("questions.jsonl"), 0)
 
 
 if __name__ == "__main__":
